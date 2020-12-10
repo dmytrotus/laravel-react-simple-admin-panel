@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 //Auth::routes();
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/', function(){
 	return redirect()->route('login');
 });
@@ -26,10 +25,5 @@ Route::post('/login', 'Auth\LoginController@login');
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
 
-Route::get('/admin', function () {
-    return view('dashboard.layouts.admin');
-});
-
-Route::get('/user', function () {
-    return view('dashboard.layouts.user');
-});
+Route::get('/admin', 'HomeController@adminIndex')->middleware('adminRole');
+Route::get('/user', 'HomeController@userIndex')->middleware('userRole');

@@ -6,8 +6,7 @@
             
           </div>
           <div class="d-block">
-            <h2 class="h6">Hi, Jane</h2>
-            <a href="##" class="btn btn-secondary text-dark btn-xs"><span class="mr-2"><span class="fas fa-sign-out-alt"></span></span>Sign Out</a>
+            <h2 class="h6">Cześć, {{ Auth::user()->name }}</h2>
           </div>
         </div>
         <div class="collapse-close d-md-none">
