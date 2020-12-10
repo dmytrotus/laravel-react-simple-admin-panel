@@ -24,6 +24,7 @@ Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('/login', 'Auth\LoginController@login');
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
-
-Route::get('/admin', 'HomeController@adminIndex')->middleware('adminRole');
-Route::get('/user', 'HomeController@userIndex')->middleware('userRole');
+Route::group(['middleware' => ['auth']], function () {
+	Route::get('/admin', 'HomeController@adminIndex')->middleware('adminRole');
+	Route::get('/user', 'HomeController@userIndex')->middleware('userRole');
+});
