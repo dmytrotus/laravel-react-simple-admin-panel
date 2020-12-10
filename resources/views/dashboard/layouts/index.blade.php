@@ -16,7 +16,7 @@
     </div>
 </nav>
 
-@component('dashboard.partials.sidebar', ['sites' => $sites ])
+@component('dashboard.partials.sidebar')
 @endcomponent
     
 <main class="content">

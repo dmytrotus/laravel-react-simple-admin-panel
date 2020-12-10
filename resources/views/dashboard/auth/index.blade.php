@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ua-UA">
+<html lang="pl-PL">
 
 @component('dashboard.partials.head')
 @endcomponent

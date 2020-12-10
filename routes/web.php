@@ -12,11 +12,23 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+//Auth::routes();
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/', function () {
     return view('dashboard.auth.login');
+})->name('login');
+
+Route::get('/register', function () {
+    return view('dashboard.auth.register');
+})->name('register');
+
+Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
+
+Route::get('/admin', function () {
+    return view('dashboard.layouts.admin');
 });
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/user', function () {
+    return view('dashboard.layouts.user');
+});

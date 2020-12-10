@@ -17,40 +17,30 @@
         </div>
       </div>
       <ul class="nav flex-column">
-        @foreach($sites as $site)
+
         <li class="nav-item">
-          <a href="{{ url('admin/site/'.$site->slug) }}" class="nav-link">
+          <a href="##" class="nav-link">
             <span class="sidebar-icon">
               <span class="fas fa-chart-pie"></span>
             </span>
-            <span>{{ $site->name }}</span>
+            <span>Projects</span>
           </a>
         </li>
-        @endforeach
-        <li role="separator" class="dropdown-divider mt-4 mb-3 border-black"></li>
+
         <li class="nav-item">
-          <span class="nav-link  collapsed  d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#submenu-components">
-            <span>
-              <span class="sidebar-icon"><span class="fas fa-box-open"></span></span> 
-              Настройки
+          <a href="##" class="nav-link">
+            <span class="sidebar-icon">
+              <span class="fas fa-chart-pie"></span>
             </span>
-            <span class="link-arrow"><span class="fas fa-chevron-right"></span></span> 
-          </span>
-          <div class="multi-level collapse " role="list" id="submenu-components" aria-expanded="false">
-              <ul class="flex-column nav">
-                  <li class="nav-item ">
-                    <a class="nav-link" href="{{ route('add-sites')}}"><span>Сайти</span></a>
-                  </li>
-              </ul>
-          </div>
+            <span>Tasks</span>
+          </a>
         </li>
 
         <li role="separator" class="dropdown-divider mt-4 mb-3 border-black"></li>
-
         <li class="nav-item text-center">
            <form method="POST" action="{{ route('logout') }}">
               @csrf
-              <button type="submit" class="btn btn-sm btn-info">Вилогінитись</button>
+              <button type="submit" class="btn btn-sm btn-info">Wyloguj się</button>
           </form>
         </li>
 
