@@ -14,16 +14,17 @@ use Illuminate\Support\Facades\Route;
 */
 //Auth::routes();
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', function(){
+	return redirect()->route('login');
+});
 
-Route::get('/', function () {
-    return view('dashboard.auth.login');
-})->name('login');
+Route::get('/register', 'Auth\RegisterController@showRegistrationForm');
+Route::post('/register', 'Auth\RegisterController@register')->name('register');
 
-Route::get('/register', function () {
-    return view('dashboard.auth.register');
-})->name('register');
-
+Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('/login', 'Auth\LoginController@login');
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
+
 
 Route::get('/admin', function () {
     return view('dashboard.layouts.admin');

@@ -8,15 +8,13 @@ use Tests\TestCase;
 
 class LoginTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function testExample()
+    public $route = '/login';
+
+    public function testShowingLoginForm()
     {
-        $response = $this->get('/');
+        $response = $this->get($this->route);
 
         $response->assertStatus(200);
+        $response->assertViewIs('dashboard.auth.login');
     }
 }
