@@ -18,7 +18,7 @@
       <ul class="nav flex-column">
 
         <li class="nav-item">
-          <a href="##" class="nav-link">
+          <a href="{{ url($role.'/projects') }}" class="nav-link">
             <span class="sidebar-icon">
               <span class="fas fa-chart-pie"></span>
             </span>
@@ -27,7 +27,7 @@
         </li>
 
         <li class="nav-item">
-          <a href="##" class="nav-link">
+          <a href="{{ url($role.'/tasks') }}" class="nav-link">
             <span class="sidebar-icon">
               <span class="fas fa-chart-pie"></span>
             </span>

@@ -16,7 +16,7 @@
     </div>
 </nav>
 
-@component('dashboard.partials.sidebar')
+@component('dashboard.partials.sidebar', ['role' => Auth::user()->role->role_name ])
 @endcomponent
     
 <main class="content">

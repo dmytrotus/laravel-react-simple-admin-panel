@@ -25,6 +25,15 @@ Route::post('/login', 'Auth\LoginController@login');
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::group(['middleware' => ['auth']], function () {
-	Route::get('/admin', 'HomeController@adminIndex')->middleware('adminRole');
-	Route::get('/user', 'HomeController@userIndex')->middleware('userRole');
+	Route::get('/admin', function(){
+		return redirect('/admin/projects');
+	});
+	Route::get('/admin/{any}', 'HomeController@adminIndex')->where('any', '.*')
+	->middleware('adminRole');
+
+	Route::get('/user', function(){
+		return redirect('/user/projects');
+	});
+	Route::get('/user/{any}', 'HomeController@userIndex')->where('any', '.*')
+	->middleware('userRole');
 });

@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import UserView from '../View/UserView';
+import { Project } from '../Models/ProjectModel';
 
 function UserController() {
+
+	const[projects, setProjects] = useState([]);
+
+	useEffect(() => {
+		Project.all().then(response => {
+			setProjects(response);
+		})
+	}, []);
     
     return (
-            <UserView />
+            <UserView
+            projects={projects} />
     );
 }
 

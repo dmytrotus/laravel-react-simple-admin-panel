@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import AdminView from '../View/AdminView';
+import { Project } from '../Models/ProjectModel';
 
 function AdminController() {
     
+    const[projects, setProjects] = useState([]);
+
+	useEffect(() => {
+		Project.all().then(response => {
+			setProjects(response);
+		})
+	}, []);
+
     return (
-            <AdminView />
+            <AdminView
+            projects={projects} 
+            />
     );
 }
 
