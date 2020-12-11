@@ -21,7 +21,7 @@ class ProjectFactory extends Factory
      */
     public function definition()
     {   
-        $title = $this->faker->text('6');
+        $title = 'Project:'.rand(0,999);
         $description = $this->faker->text('25');
         return [
             'title' => $title,

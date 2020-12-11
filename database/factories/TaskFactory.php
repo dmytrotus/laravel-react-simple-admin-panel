@@ -21,7 +21,7 @@ class TaskFactory extends Factory
      */
     public function definition()
     {   
-        $title = $this->faker->text('6');
+        $title = 'Task:'.rand(0,999);
         $description = $this->faker->text('25');
         return [
             'title' => $title,
