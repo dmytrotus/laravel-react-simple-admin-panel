@@ -19,10 +19,10 @@ use Illuminate\Support\Facades\Route;
 });*/
 Route::group(['middleware' => ['auth:api']], function () {
 	Route::get('projects/all', 'HomeController@projectsAll');
-	Route::post('projects/create', 'HomeController@createProject');
+	Route::get('tasks/all', 'HomeController@tasksAll');
 
 	Route::group(['middleware' => ['adminRole']], function () {
-		Route::get('tasks/all', 'HomeController@tasksAll');
+		Route::post('projects/create', 'HomeController@createProject');
 		Route::post('tasks/create', 'HomeController@createTask');
 	});
 });

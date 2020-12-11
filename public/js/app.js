@@ -73365,19 +73365,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _View_UserView__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../View/UserView */ "./resources/js/components/View/UserView.js");
-/* harmony import */ var _Models_ProjectModel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Models/ProjectModel */ "./resources/js/components/Models/ProjectModel.js");
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+/* harmony import */ var _UserProjectsController__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./UserProjectsController */ "./resources/js/components/Controller/UserProjectsController.js");
+/* harmony import */ var _UserTasksController__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./UserTasksController */ "./resources/js/components/Controller/UserTasksController.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _redux_ReduxStore__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/redux/ReduxStore */ "./resources/js/redux/ReduxStore.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _redux_actions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/redux/actions */ "./resources/js/redux/actions.js");
+/* harmony import */ var _Models_ProjectModel__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../Models/ProjectModel */ "./resources/js/components/Models/ProjectModel.js");
+/* harmony import */ var _Models_TaskModel__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../Models/TaskModel */ "./resources/js/components/Models/TaskModel.js");
 
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -73385,24 +73386,84 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function UserController() {
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
-      _useState2 = _slicedToArray(_useState, 2),
-      projects = _useState2[0],
-      setProjects = _useState2[1];
-
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    _Models_ProjectModel__WEBPACK_IMPORTED_MODULE_3__["Project"].all().then(function (response) {
-      setProjects(response);
+    _Models_ProjectModel__WEBPACK_IMPORTED_MODULE_8__["Project"].all().then(function (response) {
+      _redux_ReduxStore__WEBPACK_IMPORTED_MODULE_5__["store"].dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_7__["SaveProjectsData"])(response));
     });
   }, []);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_View_UserView__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    projects: projects
-  });
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    _Models_TaskModel__WEBPACK_IMPORTED_MODULE_9__["Task"].all().then(function (response) {
+      _redux_ReduxStore__WEBPACK_IMPORTED_MODULE_5__["store"].dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_7__["SaveTasksData"])(response));
+    });
+  }, []);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__["BrowserRouter"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__["Route"], {
+    path: "/user/projects",
+    exact: true,
+    component: _UserProjectsController__WEBPACK_IMPORTED_MODULE_2__["default"]
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__["Route"], {
+    path: "/user/tasks",
+    exact: true,
+    component: _UserTasksController__WEBPACK_IMPORTED_MODULE_3__["default"]
+  }))));
 }
 
 if (document.getElementById('user-component')) {
-  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(UserController, null), document.getElementById('user-component'));
+  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_redux__WEBPACK_IMPORTED_MODULE_4__["Provider"], {
+    store: _redux_ReduxStore__WEBPACK_IMPORTED_MODULE_5__["store"]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(UserController, null)), document.getElementById('user-component'));
 }
+
+/***/ }),
+
+/***/ "./resources/js/components/Controller/UserProjectsController.js":
+/*!**********************************************************************!*\
+  !*** ./resources/js/components/Controller/UserProjectsController.js ***!
+  \**********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _View_UserProjectsView__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../View/UserProjectsView */ "./resources/js/components/View/UserProjectsView.js");
+/* harmony import */ var _Models_ProjectModel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Models/ProjectModel */ "./resources/js/components/Models/ProjectModel.js");
+/* harmony import */ var _redux_ReduxStore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/redux/ReduxStore */ "./resources/js/redux/ReduxStore.js");
+
+
+
+
+
+function UserProjectsController() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_View_UserProjectsView__WEBPACK_IMPORTED_MODULE_1__["default"], null);
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (UserProjectsController);
+
+/***/ }),
+
+/***/ "./resources/js/components/Controller/UserTasksController.js":
+/*!*******************************************************************!*\
+  !*** ./resources/js/components/Controller/UserTasksController.js ***!
+  \*******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _View_UserTasksView__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../View/UserTasksView */ "./resources/js/components/View/UserTasksView.js");
+/* harmony import */ var _Models_TaskModel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Models/TaskModel */ "./resources/js/components/Models/TaskModel.js");
+
+
+
+
+function UserTasksController() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_View_UserTasksView__WEBPACK_IMPORTED_MODULE_1__["default"], null);
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (UserTasksController);
 
 /***/ }),
 
@@ -73843,10 +73904,10 @@ var AdminTasksViewWrapped = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["con
 
 /***/ }),
 
-/***/ "./resources/js/components/View/UserView.js":
-/*!**************************************************!*\
-  !*** ./resources/js/components/View/UserView.js ***!
-  \**************************************************/
+/***/ "./resources/js/components/View/UserProjectsView.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/View/UserProjectsView.js ***!
+  \**********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -73854,21 +73915,73 @@ var AdminTasksViewWrapped = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["con
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _redux_ReduxStore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/redux/ReduxStore */ "./resources/js/redux/ReduxStore.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 
 
-function UserView(props) {
+
+
+function UserProjectsView(props) {
   var projects = props.projects;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Projekty"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Projekty (", projects.length, ")"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
     className: "list-group"
-  }, projects.map(function (project) {
+  }, projects && projects.map(function (project) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
       key: project.id,
-      className: "list-group-item"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Nazwa projektu: "), project.title, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, " Opis: "), project.description);
+      className: "list-group-item d-flex justify-content-between"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Nazwa projektu: "), project.title, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, " Opis: "), project.description, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, " Stworzony przez:"), " ", project.author));
   })));
 }
 
-/* harmony default export */ __webpack_exports__["default"] = (UserView);
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    projects: state.ProjectsData
+  };
+};
+
+var UserProjectsViewWrapped = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps)(UserProjectsView);
+/* harmony default export */ __webpack_exports__["default"] = (UserProjectsViewWrapped);
+
+/***/ }),
+
+/***/ "./resources/js/components/View/UserTasksView.js":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/View/UserTasksView.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _redux_ReduxStore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/redux/ReduxStore */ "./resources/js/redux/ReduxStore.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+
+
+
+function UserTasksView(props) {
+  var tasks = props.tasks;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Tasks (", tasks.length, ")"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+    className: "list-group"
+  }, tasks.map(function (task) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+      key: task.id,
+      className: "list-group-item d-flex justify-content-between"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Nazwa: "), task.title, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, " Opis: "), task.description, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Do projektu:"), " ", task.project));
+  })));
+}
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    tasks: state.TasksData,
+    projects: state.ProjectsData
+  };
+};
+
+var UserTasksViewWrapped = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps)(UserTasksView);
+/* harmony default export */ __webpack_exports__["default"] = (UserTasksViewWrapped);
 
 /***/ }),
 
