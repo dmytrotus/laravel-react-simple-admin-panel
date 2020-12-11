@@ -73464,7 +73464,7 @@ var ProjectModel = /*#__PURE__*/function (_Passwords) {
     key: "all",
     value: function () {
       var _all = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var url, _yield$axios, message, status;
+        var url, _yield$axios, data, status;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
@@ -73476,9 +73476,9 @@ var ProjectModel = /*#__PURE__*/function (_Passwords) {
 
               case 3:
                 _yield$axios = _context.sent;
-                message = _yield$axios.data.message;
+                data = _yield$axios.data.data;
                 status = _yield$axios.status;
-                return _context.abrupt("return", message);
+                return _context.abrupt("return", data);
 
               case 7:
               case "end":
@@ -73497,8 +73497,8 @@ var ProjectModel = /*#__PURE__*/function (_Passwords) {
   }, {
     key: "create",
     value: function () {
-      var _create = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(data) {
-        var url, _yield$axios$post, message, status;
+      var _create = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(state) {
+        var url, _yield$axios$post, data, status;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
@@ -73506,13 +73506,13 @@ var ProjectModel = /*#__PURE__*/function (_Passwords) {
               case 0:
                 url = '/api/projects/create';
                 _context2.next = 3;
-                return axios.post(url, data, this.headers);
+                return axios.post(url, state, this.headers);
 
               case 3:
                 _yield$axios$post = _context2.sent;
-                message = _yield$axios$post.data.message;
+                data = _yield$axios$post.data.data;
                 status = _yield$axios$post.status;
-                return _context2.abrupt("return", message);
+                return _context2.abrupt("return", data);
 
               case 7:
               case "end":
@@ -73595,7 +73595,7 @@ var TaskModel = /*#__PURE__*/function (_Passwords) {
     key: "all",
     value: function () {
       var _all = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var url, _yield$axios, message, status;
+        var url, _yield$axios, data, status;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
@@ -73607,9 +73607,9 @@ var TaskModel = /*#__PURE__*/function (_Passwords) {
 
               case 3:
                 _yield$axios = _context.sent;
-                message = _yield$axios.data.message;
+                data = _yield$axios.data.data;
                 status = _yield$axios.status;
-                return _context.abrupt("return", message);
+                return _context.abrupt("return", data);
 
               case 7:
               case "end":
@@ -73628,8 +73628,8 @@ var TaskModel = /*#__PURE__*/function (_Passwords) {
   }, {
     key: "create",
     value: function () {
-      var _create = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(data) {
-        var url, _yield$axios$post, message, status;
+      var _create = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(state) {
+        var url, _yield$axios$post, data, status;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
@@ -73637,13 +73637,13 @@ var TaskModel = /*#__PURE__*/function (_Passwords) {
               case 0:
                 url = '/api/tasks/create';
                 _context2.next = 3;
-                return axios.post(url, data, this.headers);
+                return axios.post(url, state, this.headers);
 
               case 3:
                 _yield$axios$post = _context2.sent;
-                message = _yield$axios$post.data.message;
+                data = _yield$axios$post.data.data;
                 status = _yield$axios$post.status;
-                return _context2.abrupt("return", message);
+                return _context2.abrupt("return", data);
 
               case 7:
               case "end":
@@ -73792,10 +73792,10 @@ function AdminTasksView(props) {
     className: "form-control m-1",
     name: "project_id"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-    value: "",
-    selected: true
+    value: ""
   }, "Wybierz projekt"), projects.map(function (pr) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+      key: pr.id,
       value: pr.id
     }, pr.title);
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {

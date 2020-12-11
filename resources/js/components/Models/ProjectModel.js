@@ -8,14 +8,14 @@ class ProjectModel extends Passwords
 
     async all() {
         const url = '/api/projects/all';
-        const {data: {message}, status} = await axios(url, this.headers);
-        return message;
+        const {data: {data}, status} = await axios(url, this.headers);
+        return data;
     }
 
-    async create(data) {
+    async create(state) {
         const url = '/api/projects/create';
-        const {data: {message}, status} = await axios.post(url, data, this.headers);
-        return message;
+        const {data: {data}, status} = await axios.post(url, state, this.headers);
+        return data;
     }
 
 }

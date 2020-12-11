@@ -13,6 +13,7 @@ function AdminTasksView(props) {
     const SaveNewTask = props.SaveNewTask;
     const projects = props.projects;
 
+
     return (
     	<Fragment>
         <div className="d-flex flex-wrap">
@@ -26,9 +27,9 @@ function AdminTasksView(props) {
             +(NewTaskState.isOpened == false ? 'invisible' : '')}>
                 <div className="input-group">
                     <select onChange={handleNewTaskChange} className="form-control m-1" name="project_id">
-                       <option value="" selected>Wybierz projekt</option>
+                       <option value=''>Wybierz projekt</option>
                        {projects.map(pr =>
-                       <option value={pr.id}>{pr.title}</option>
+                       <option key={pr.id} value={pr.id}>{pr.title}</option>
                        )}
                     </select>
                 </div>

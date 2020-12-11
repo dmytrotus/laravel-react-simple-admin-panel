@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Models\Task;
 use App\Models\User;
-use App\Http\Resources\TaskCollection;
+use App\Http\Resources\TaskResource;
+use App\Http\Resources\ProjectResource;
 
 class HomeController extends Controller
 {
@@ -25,10 +26,7 @@ class HomeController extends Controller
 
     	$projects = Project::orderBy('created_at', 'desc')->get();
 
-    	return response()->json([
-    		'success' => true,
-    		'message' => $projects
-    	], 200);
+    	return ProjectResource::collection($projects);
     }
 
     public function createProject(Request $request){
@@ -44,22 +42,14 @@ class HomeController extends Controller
 
         $projects = Project::orderBy('created_at', 'desc')->get();
 
-        return response()->json([
-            'success' => true,
-            'message' => $projects
-        ], 200);
+        return ProjectResource::collection($projects);
     }
 
     public function tasksAll(){
 
         $tasks = Task::orderBy('created_at', 'desc')->get();
-        //$tasks = Task::all();
-        //$tasks = (new TaskCollection($tasks));
+        return TaskResource::collection($tasks);
 
-        return response()->json([
-            'success' => true,
-            'message' => $tasks
-        ], 200);
     }
 
     public function createTask(Request $request){
@@ -72,9 +62,6 @@ class HomeController extends Controller
 
         $tasks = Task::orderBy('created_at', 'desc')->get();
 
-        return response()->json([
-            'success' => true,
-            'message' => $tasks
-        ], 200);
+        return TaskResource::collection($tasks);
     }
 }

@@ -13,9 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 //Auth::routes();
-Route::get('/', function(){
-	return redirect()->route('login');
-});
+Route::get('/', 'HomeController@tasksAll');
+/*Route::get('/', function(){
+	return redirect('/user/projects');
+});*/
 
 Route::get('/register', 'Auth\RegisterController@showRegistrationForm');
 Route::post('/register', 'Auth\RegisterController@register')->name('register');
