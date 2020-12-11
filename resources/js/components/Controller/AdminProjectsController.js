@@ -7,12 +7,6 @@ import { SetNewProjectState } from '@/redux/actions';
 
 function AdminProjectsController() {
 
-	useEffect(() => {
-		Project.all().then(response => {
-            store.dispatch(SaveProjectsData( response ));
-		})
-	}, []);
-
     const[newProjectState, setNewProjectState] = useState({
         isOpened: false,
         title: '',

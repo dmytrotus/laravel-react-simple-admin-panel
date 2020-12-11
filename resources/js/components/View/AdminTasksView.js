@@ -8,8 +8,10 @@ function AdminTasksView(props) {
     const OpenNewTaskArea = props.OpenNewTaskArea;
     const NewTaskState = props.NewTaskState;
     const handleNewTaskChange = props.handleNewTaskChange;
-    const saveBtnEnabled = props.NewTaskState && props.NewTaskState.title.length > 0 ? '' : 'disabled';
+    const saveBtnEnabled = props.NewTaskState && props.NewTaskState.title.length > 0 &&
+    props.NewTaskState.project_id.length > 0 ? '' : 'disabled';
     const SaveNewTask = props.SaveNewTask;
+    const projects = props.projects;
 
     return (
     	<Fragment>
@@ -22,6 +24,14 @@ function AdminTasksView(props) {
             </div>
             <div className={"col-12 col-md-5 col-lg-8 m-1 "
             +(NewTaskState.isOpened == false ? 'invisible' : '')}>
+                <div className="input-group">
+                    <select onChange={handleNewTaskChange} className="form-control m-1" name="project_id">
+                       <option value="" selected>Wybierz projekt</option>
+                       {projects.map(pr =>
+                       <option value={pr.id}>{pr.title}</option>
+                       )}
+                    </select>
+                </div>
                 <div className="input-group">
                     <input onChange={handleNewTaskChange} name="title"
                     className="form-control m-1" type="text" placeholder="Nazwa zadania"
@@ -39,7 +49,7 @@ function AdminTasksView(props) {
     	{tasks.map(task =>
 		  <li key={task.id} className="list-group-item d-flex justify-content-between">
 		  	<div>
-		  		<b>Nazwa: </b>{task.title}<b> Opis: </b>{task.description} <b>Stworzony przez:</b> {task.author}
+		  		<b>Nazwa: </b>{task.title}<b> Opis: </b>{task.description} <b>Do projektu:</b> {task.project}
 		  	</div>
 		  	<div>
 		  		<button className="btn btn-sm btn-info">Edytuj</button>
@@ -55,7 +65,8 @@ function AdminTasksView(props) {
 const mapStateToProps = state => {
   return {
     tasks: state.TasksData,
-    NewTaskState: state.NewTaskState
+    NewTaskState: state.NewTaskState,
+    projects: state.ProjectsData
   }
 }
 

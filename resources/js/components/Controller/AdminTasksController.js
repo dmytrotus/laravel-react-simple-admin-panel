@@ -7,16 +7,11 @@ import { SetNewTaskState } from '@/redux/actions';
 
 function AdminTasksController() {
 
-	useEffect(() => {
-		Task.all().then(response => {
-            store.dispatch(SaveTasksData( response ));
-		})
-	}, []);
-
     const[newTaskState, setNewTaskState] = useState({
         isOpened: false,
         title: '',
-        description: ''
+        description: '',
+        project_id: ''
     });
 
     useEffect(() => {
@@ -30,13 +25,15 @@ function AdminTasksController() {
             setNewTaskState({
                isOpened: true,
                 title: '',
-                description: '' 
+                description: '',
+                project_id: '' 
             })
         } else {
             setNewTaskState({
                isOpened: false,
                 title: '',
-                description: '' 
+                description: '',
+                project_id: '' 
             })
         }
     }

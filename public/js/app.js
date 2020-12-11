@@ -73002,9 +73002,38 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
  */
 
 
+__webpack_require__(/*! ./app/Passwords */ "./resources/js/app/Passwords.js");
+
 __webpack_require__(/*! ./components/Controller/AdminController */ "./resources/js/components/Controller/AdminController.js");
 
 __webpack_require__(/*! ./components/Controller/UserController */ "./resources/js/components/Controller/UserController.js");
+
+/***/ }),
+
+/***/ "./resources/js/app/Passwords.js":
+/*!***************************************!*\
+  !*** ./resources/js/app/Passwords.js ***!
+  \***************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Passwords = function Passwords() {
+  _classCallCheck(this, Passwords);
+
+  var token = document.querySelector('meta[name=user-api-token]').getAttribute('content');
+  this.headers = {
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Accept': 'application/json'
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Passwords);
 
 /***/ }),
 
@@ -73071,6 +73100,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _redux_ReduxStore__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/redux/ReduxStore */ "./resources/js/redux/ReduxStore.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _redux_actions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/redux/actions */ "./resources/js/redux/actions.js");
+/* harmony import */ var _Models_ProjectModel__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../Models/ProjectModel */ "./resources/js/components/Models/ProjectModel.js");
+/* harmony import */ var _Models_TaskModel__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../Models/TaskModel */ "./resources/js/components/Models/TaskModel.js");
+
+
+
+
 
 
 
@@ -73080,6 +73116,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function AdminController() {
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    _Models_ProjectModel__WEBPACK_IMPORTED_MODULE_8__["Project"].all().then(function (response) {
+      _redux_ReduxStore__WEBPACK_IMPORTED_MODULE_5__["store"].dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_7__["SaveProjectsData"])(response));
+    });
+  }, []);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    _Models_TaskModel__WEBPACK_IMPORTED_MODULE_9__["Task"].all().then(function (response) {
+      _redux_ReduxStore__WEBPACK_IMPORTED_MODULE_5__["store"].dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_7__["SaveTasksData"])(response));
+    });
+  }, []);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__["BrowserRouter"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__["Route"], {
     path: "/admin/projects",
     exact: true,
@@ -73140,12 +73186,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function AdminProjectsController() {
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    _Models_ProjectModel__WEBPACK_IMPORTED_MODULE_2__["Project"].all().then(function (response) {
-      _redux_ReduxStore__WEBPACK_IMPORTED_MODULE_3__["store"].dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_4__["SaveProjectsData"])(response));
-    });
-  }, []);
-
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
     isOpened: false,
     title: '',
@@ -73248,16 +73288,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function AdminTasksController() {
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    _Models_TaskModel__WEBPACK_IMPORTED_MODULE_2__["Task"].all().then(function (response) {
-      _redux_ReduxStore__WEBPACK_IMPORTED_MODULE_3__["store"].dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_4__["SaveTasksData"])(response));
-    });
-  }, []);
-
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
     isOpened: false,
     title: '',
-    description: ''
+    description: '',
+    project_id: ''
   }),
       _useState2 = _slicedToArray(_useState, 2),
       newTaskState = _useState2[0],
@@ -73274,13 +73309,15 @@ function AdminTasksController() {
       setNewTaskState({
         isOpened: true,
         title: '',
-        description: ''
+        description: '',
+        project_id: ''
       });
     } else {
       setNewTaskState({
         isOpened: false,
         title: '',
-        description: ''
+        description: '',
+        project_id: ''
       });
     }
   };
@@ -73381,6 +73418,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Project", function() { return Project; });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _app_Passwords__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/app/Passwords */ "./resources/js/app/Passwords.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -73393,18 +73433,35 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-//import Passwords from '@/app/Passwords';
-var ProjectModel = /*#__PURE__*/function () {
-  function ProjectModel() {
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+var ProjectModel = /*#__PURE__*/function (_Passwords) {
+  _inherits(ProjectModel, _Passwords);
+
+  var _super = _createSuper(ProjectModel);
+
+  function ProjectModel(headers) {
     _classCallCheck(this, ProjectModel);
+
+    return _super.call(this, headers);
   }
 
   _createClass(ProjectModel, [{
     key: "all",
-
-    /*constructor(headers) {
-        super(headers);
-    }*/
     value: function () {
       var _all = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
         var url, _yield$axios, message, status;
@@ -73415,7 +73472,7 @@ var ProjectModel = /*#__PURE__*/function () {
               case 0:
                 url = '/api/projects/all';
                 _context.next = 3;
-                return axios(url);
+                return axios(url, this.headers);
 
               case 3:
                 _yield$axios = _context.sent;
@@ -73428,7 +73485,7 @@ var ProjectModel = /*#__PURE__*/function () {
                 return _context.stop();
             }
           }
-        }, _callee);
+        }, _callee, this);
       }));
 
       function all() {
@@ -73449,7 +73506,7 @@ var ProjectModel = /*#__PURE__*/function () {
               case 0:
                 url = '/api/projects/create';
                 _context2.next = 3;
-                return axios.post(url, data);
+                return axios.post(url, data, this.headers);
 
               case 3:
                 _yield$axios$post = _context2.sent;
@@ -73462,7 +73519,7 @@ var ProjectModel = /*#__PURE__*/function () {
                 return _context2.stop();
             }
           }
-        }, _callee2);
+        }, _callee2, this);
       }));
 
       function create(_x) {
@@ -73474,7 +73531,7 @@ var ProjectModel = /*#__PURE__*/function () {
   }]);
 
   return ProjectModel;
-}();
+}(_app_Passwords__WEBPACK_IMPORTED_MODULE_1__["default"]);
 
 var Project = new ProjectModel();
 
@@ -73646,7 +73703,7 @@ function AdminProjectsView(props) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
       key: project.id,
       className: "list-group-item d-flex justify-content-between"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Nazwa projektu: "), project.title, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, " Opis: "), project.description), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Nazwa projektu: "), project.title, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, " Opis: "), project.description, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Stworzony przez:"), " ", project.author), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
       className: "btn btn-sm btn-info"
     }, "Edytuj"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
       className: "btn btn-sm btn-danger ml-1"
@@ -73688,8 +73745,9 @@ function AdminTasksView(props) {
   var OpenNewTaskArea = props.OpenNewTaskArea;
   var NewTaskState = props.NewTaskState;
   var handleNewTaskChange = props.handleNewTaskChange;
-  var saveBtnEnabled = props.NewTaskState && props.NewTaskState.title.length > 0 ? '' : 'disabled';
+  var saveBtnEnabled = props.NewTaskState && props.NewTaskState.title.length > 0 && props.NewTaskState.project_id.length > 0 ? '' : 'disabled';
   var SaveNewTask = props.SaveNewTask;
+  var projects = props.projects;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "d-flex flex-wrap"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -73703,6 +73761,19 @@ function AdminTasksView(props) {
   }, "Zapisz")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col-12 col-md-5 col-lg-8 m-1 " + (NewTaskState.isOpened == false ? 'invisible' : '')
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "input-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+    onChange: handleNewTaskChange,
+    className: "form-control m-1",
+    name: "project_id"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    value: "",
+    selected: true
+  }, "Wybierz projekt"), projects.map(function (pr) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+      value: pr.id
+    }, pr.title);
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "input-group"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
     onChange: handleNewTaskChange,
@@ -73726,7 +73797,7 @@ function AdminTasksView(props) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
       key: task.id,
       className: "list-group-item d-flex justify-content-between"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Nazwa: "), task.title, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, " Opis: "), task.description, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Stworzony przez:"), " ", task.author), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Nazwa: "), task.title, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, " Opis: "), task.description, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Do projektu:"), " ", task.project), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
       className: "btn btn-sm btn-info"
     }, "Edytuj"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
       className: "btn btn-sm btn-danger ml-1"
@@ -73737,7 +73808,8 @@ function AdminTasksView(props) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     tasks: state.TasksData,
-    NewTaskState: state.NewTaskState
+    NewTaskState: state.NewTaskState,
+    projects: state.ProjectsData
   };
 };
 

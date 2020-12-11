@@ -1,20 +1,20 @@
-//import Passwords from '@/app/Passwords';
+import Passwords from '@/app/Passwords';
 
-class ProjectModel
+class ProjectModel extends Passwords
 {    
-    /*constructor(headers) {
+    constructor(headers) {
         super(headers);
-    }*/
+    }
 
     async all() {
         const url = '/api/projects/all';
-        const {data: {message}, status} = await axios(url);
+        const {data: {message}, status} = await axios(url, this.headers);
         return message;
     }
 
     async create(data) {
         const url = '/api/projects/create';
-        const {data: {message}, status} = await axios.post(url, data);
+        const {data: {message}, status} = await axios.post(url, data, this.headers);
         return message;
     }
 

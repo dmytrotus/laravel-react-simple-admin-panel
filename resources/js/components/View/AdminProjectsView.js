@@ -39,7 +39,7 @@ function AdminProjectsView(props) {
     	{projects && projects.map(project =>
 		  <li key={project.id} className="list-group-item d-flex justify-content-between">
 		  	<div>
-		  		<b>Nazwa projektu: </b>{project.title}<b> Opis: </b>{project.description}
+		  		<b>Nazwa projektu: </b>{project.title}<b> Opis: </b>{project.description}<b>Stworzony przez:</b> {project.author}
 		  	</div>
 		  	<div>
 		  		<button className="btn btn-sm btn-info">Edytuj</button>

@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Models\Task;
-use Auth;
+use App\Models\User;
+use App\Http\Resources\TaskCollection;
 
 class HomeController extends Controller
 {
@@ -32,9 +33,13 @@ class HomeController extends Controller
 
     public function createProject(Request $request){
 
+        $token = $request->bearerToken();
+        $user = User::where('api_token', $token)->firstOrFail();
+
         Project::create([
             'title' => $request->title,
-            'description' => $request->description
+            'description' => $request->description,
+            'user_id' => $user->id,
         ]);
 
         $projects = Project::orderBy('created_at', 'desc')->get();
@@ -48,7 +53,8 @@ class HomeController extends Controller
     public function tasksAll(){
 
         $tasks = Task::orderBy('created_at', 'desc')->get();
-        
+        //$tasks = Task::all();
+        //$tasks = (new TaskCollection($tasks));
 
         return response()->json([
             'success' => true,
@@ -60,7 +66,8 @@ class HomeController extends Controller
 
         Task::create([
             'title' => $request->title,
-            'description' => $request->description
+            'description' => $request->description,
+            'project_id' => $request->project_id
         ]);
 
         $tasks = Task::orderBy('created_at', 'desc')->get();

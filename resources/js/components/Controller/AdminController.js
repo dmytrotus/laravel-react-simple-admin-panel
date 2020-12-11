@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import AdminProjectsController from './AdminProjectsController';
 import AdminTasksController from './AdminTasksController';
@@ -11,8 +11,24 @@ import {
   Link,
   Redirect
 } from "react-router-dom";
+import { SaveProjectsData } from '@/redux/actions';
+import { SaveTasksData } from '@/redux/actions';
+import { Project } from '../Models/ProjectModel';
+import { Task } from '../Models/TaskModel';
 
 function AdminController() {
+
+  useEffect(() => {
+    Project.all().then(response => {
+            store.dispatch(SaveProjectsData( response ));
+    })
+  }, []);
+
+  useEffect(() => {
+    Task.all().then(response => {
+            store.dispatch(SaveTasksData( response ));
+    })
+  }, []);
 
     return (
      <Fragment>
