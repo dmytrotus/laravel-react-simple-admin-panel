@@ -18,3 +18,4 @@ use Illuminate\Support\Facades\Route;
     return $request->user();
 });*/
 Route::get('projects/all', 'HomeController@projectsAll');
+Route::post('projects/create', 'HomeController@createProject');

@@ -20,11 +20,26 @@ class HomeController extends Controller
 
     public function projectsAll(){
 
-    	$projects = Project::all();
+    	$projects = Project::orderBy('created_at', 'desc')->get();
 
     	return response()->json([
     		'success' => true,
     		'message' => $projects
     	], 200);
+    }
+
+    public function createProject(Request $request){
+
+        Project::create([
+            'title' => $request->title,
+            'description' => $request->description
+        ]);
+
+        $projects = Project::orderBy('created_at', 'desc')->get();
+
+        return response()->json([
+            'success' => true,
+            'message' => $projects
+        ], 200);
     }
 }

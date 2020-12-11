@@ -4,3 +4,9 @@ export const SaveProjectsData = (array) =>{
 		array: array
 	}
 }
+export const SetNewProjectState = (object) =>{
+	return {
+		type: 'NewProjectState',
+		object: object
+	}
+}

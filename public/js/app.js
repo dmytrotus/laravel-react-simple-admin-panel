@@ -73071,6 +73071,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _redux_ReduxStore__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/redux/ReduxStore */ "./resources/js/redux/ReduxStore.js");
 /* harmony import */ var _redux_actions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/redux/actions */ "./resources/js/redux/actions.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
 
 
 
@@ -73085,7 +73104,62 @@ function AdminController() {
       _redux_ReduxStore__WEBPACK_IMPORTED_MODULE_5__["store"].dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_6__["SaveProjectsData"])(response));
     });
   }, []);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_View_AdminView__WEBPACK_IMPORTED_MODULE_2__["default"], null);
+
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
+    isOpened: false,
+    title: '',
+    description: ''
+  }),
+      _useState2 = _slicedToArray(_useState, 2),
+      newProjectState = _useState2[0],
+      setNewProjectState = _useState2[1];
+
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    _redux_ReduxStore__WEBPACK_IMPORTED_MODULE_5__["store"].dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_6__["SetNewProjectState"])(newProjectState));
+  }, [newProjectState]);
+
+  var OpenNewProjectArea = function OpenNewProjectArea(e) {
+    e.preventDefault();
+
+    if (newProjectState.isOpened == false) {
+      setNewProjectState({
+        isOpened: true,
+        title: '',
+        description: ''
+      });
+    } else {
+      setNewProjectState({
+        isOpened: false,
+        title: '',
+        description: ''
+      });
+    }
+  };
+
+  var handleNewProjectChange = function handleNewProjectChange(e) {
+    e.preventDefault();
+    setNewProjectState(function (prevState) {
+      return _objectSpread(_objectSpread({}, prevState), {}, _defineProperty({}, e.target.name, e.target.value));
+    });
+  };
+
+  var SaveNewProject = function SaveNewProject(e) {
+    e.preventDefault();
+    _Models_ProjectModel__WEBPACK_IMPORTED_MODULE_3__["Project"].create(newProjectState).then(function (response) {
+      _redux_ReduxStore__WEBPACK_IMPORTED_MODULE_5__["store"].dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_6__["SaveProjectsData"])(response));
+      setNewProjectState({
+        isOpened: true,
+        title: '',
+        description: ''
+      });
+    });
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_View_AdminView__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    OpenNewProjectArea: OpenNewProjectArea,
+    handleNewProjectChange: handleNewProjectChange,
+    SaveNewProject: SaveNewProject
+  });
 }
 
 if (document.getElementById('admin-component')) {
@@ -73218,6 +73292,40 @@ var ProjectModel = /*#__PURE__*/function () {
 
       return all;
     }()
+  }, {
+    key: "create",
+    value: function () {
+      var _create = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(data) {
+        var url, _yield$axios$post, message, status;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                url = '/api/projects/create';
+                _context2.next = 3;
+                return axios.post(url, data);
+
+              case 3:
+                _yield$axios$post = _context2.sent;
+                message = _yield$axios$post.data.message;
+                status = _yield$axios$post.status;
+                return _context2.abrupt("return", message);
+
+              case 7:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      function create(_x) {
+        return _create.apply(this, arguments);
+      }
+
+      return create;
+    }()
   }]);
 
   return ProjectModel;
@@ -73246,7 +73354,42 @@ __webpack_require__.r(__webpack_exports__);
 
 function AdminProjectsView(props) {
   var projects = props.projects;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Projekty"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+  var OpenNewProjectArea = props.OpenNewProjectArea;
+  var NewProjectState = props.NewProjectState;
+  var handleNewProjectChange = props.handleNewProjectChange;
+  var saveBtnEnabled = props.NewProjectState && props.NewProjectState.title.length > 0 ? '' : 'disabled';
+  var SaveNewProject = props.SaveNewProject;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "d-flex flex-wrap"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-12 col-md-6 col-lg-3 m-1"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    onClick: OpenNewProjectArea,
+    className: "btn btn-info m-1 w-100"
+  }, NewProjectState.isOpened == false ? 'Dodaj nowy projekt' : 'Zamknij'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    onClick: SaveNewProject,
+    className: "btn btn-success m-1 w-100 " + saveBtnEnabled
+  }, "Zapisz")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-12 col-md-5 col-lg-8 m-1 " + (NewProjectState.isOpened == false ? 'invisible' : '')
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "input-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    onChange: handleNewProjectChange,
+    name: "title",
+    className: "form-control m-1",
+    type: "text",
+    placeholder: "Nazwa projektu",
+    value: NewProjectState.title || ''
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "input-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    onChange: handleNewProjectChange,
+    name: "description",
+    className: "form-control m-1",
+    type: "text",
+    placeholder: "Opis projektu",
+    value: NewProjectState.description || ''
+  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Projekty (", projects.length, ")"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
     className: "list-group"
   }, projects && projects.map(function (project) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
@@ -73262,7 +73405,8 @@ function AdminProjectsView(props) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    projects: state.ProjectsData
+    projects: state.ProjectsData,
+    NewProjectState: state.NewProjectState
   };
 };
 
@@ -73323,11 +73467,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function AdminView() {
+function AdminView(props) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["BrowserRouter"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], {
     path: "/admin/projects",
     exact: true,
-    component: _AdminProjectsView__WEBPACK_IMPORTED_MODULE_1__["default"]
+    render: function render() {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AdminProjectsView__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        OpenNewProjectArea: props.OpenNewProjectArea,
+        handleNewProjectChange: props.handleNewProjectChange,
+        SaveNewProject: props.SaveNewProject
+      });
+    }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], {
     path: "/admin/tasks",
     exact: true,
@@ -73390,18 +73540,51 @@ var store = Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_reducers_
 /*!***************************************!*\
   !*** ./resources/js/redux/actions.js ***!
   \***************************************/
-/*! exports provided: SaveProjectsData */
+/*! exports provided: SaveProjectsData, SetNewProjectState */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SaveProjectsData", function() { return SaveProjectsData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SetNewProjectState", function() { return SetNewProjectState; });
 var SaveProjectsData = function SaveProjectsData(array) {
   return {
     type: 'ProjectsData',
     array: array
   };
 };
+var SetNewProjectState = function SetNewProjectState(object) {
+  return {
+    type: 'NewProjectState',
+    object: object
+  };
+};
+
+/***/ }),
+
+/***/ "./resources/js/redux/reducers/NewProjectState.js":
+/*!********************************************************!*\
+  !*** ./resources/js/redux/reducers/NewProjectState.js ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var NewProjectState = function NewProjectState() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case 'NewProjectState':
+      return action.object;
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (NewProjectState);
 
 /***/ }),
 
@@ -73441,11 +73624,14 @@ var ProjectsData = function ProjectsData() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ProjectsData__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProjectsData */ "./resources/js/redux/reducers/ProjectsData.js");
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var _NewProjectState__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NewProjectState */ "./resources/js/redux/reducers/NewProjectState.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 
 
-var allReducers = Object(redux__WEBPACK_IMPORTED_MODULE_1__["combineReducers"])({
-  ProjectsData: _ProjectsData__WEBPACK_IMPORTED_MODULE_0__["default"]
+
+var allReducers = Object(redux__WEBPACK_IMPORTED_MODULE_2__["combineReducers"])({
+  ProjectsData: _ProjectsData__WEBPACK_IMPORTED_MODULE_0__["default"],
+  NewProjectState: _NewProjectState__WEBPACK_IMPORTED_MODULE_1__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (allReducers);
 

@@ -10,13 +10,20 @@ import {
 } from "react-router-dom";
 
 
-function AdminView() {
-
+function AdminView(props) {
+  
     return (
     	<Fragment>
     	<Router>
     		<Switch>
-	    		<Route path="/admin/projects" exact component={AdminProjectsView}/>
+	    		<Route path="/admin/projects" exact
+          render={() => <AdminProjectsView
+          OpenNewProjectArea={props.OpenNewProjectArea}
+          handleNewProjectChange={props.handleNewProjectChange}
+          SaveNewProject={props.SaveNewProject}
+          /> } />
+
+
 	    		<Route path="/admin/tasks" exact component={AdminTasksView}/>
 	    	</Switch>
 	    </Router>

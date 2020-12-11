@@ -12,6 +12,12 @@ class ProjectModel
         return message;
     }
 
+    async create(data) {
+        const url = '/api/projects/create';
+        const {data: {message}, status} = await axios.post(url, data);
+        return message;
+    }
+
 }
 
 export const Project = new ProjectModel();
