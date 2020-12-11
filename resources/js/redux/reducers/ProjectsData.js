@@ -1,4 +1,4 @@
-const ProjectsData = (state = 0, action) => {
+const ProjectsData = (state = [], action) => {
 	switch (action.type) {
 
 		case 'ProjectsData':

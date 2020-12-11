@@ -73066,11 +73066,54 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _View_AdminView__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../View/AdminView */ "./resources/js/components/View/AdminView.js");
-/* harmony import */ var _Models_ProjectModel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Models/ProjectModel */ "./resources/js/components/Models/ProjectModel.js");
+/* harmony import */ var _AdminProjectsController__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AdminProjectsController */ "./resources/js/components/Controller/AdminProjectsController.js");
+/* harmony import */ var _AdminTasksController__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./AdminTasksController */ "./resources/js/components/Controller/AdminTasksController.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _redux_ReduxStore__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/redux/ReduxStore */ "./resources/js/redux/ReduxStore.js");
-/* harmony import */ var _redux_actions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/redux/actions */ "./resources/js/redux/actions.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
+
+
+
+
+
+
+
+function AdminController() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__["BrowserRouter"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__["Route"], {
+    path: "/admin/projects",
+    exact: true,
+    component: _AdminProjectsController__WEBPACK_IMPORTED_MODULE_2__["default"]
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__["Route"], {
+    path: "/admin/tasks",
+    exact: true,
+    component: _AdminTasksController__WEBPACK_IMPORTED_MODULE_7__["default"]
+  }))));
+}
+
+if (document.getElementById('admin-component')) {
+  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_redux__WEBPACK_IMPORTED_MODULE_4__["Provider"], {
+    store: _redux_ReduxStore__WEBPACK_IMPORTED_MODULE_5__["store"]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(AdminController, null)), document.getElementById('admin-component'));
+}
+
+/***/ }),
+
+/***/ "./resources/js/components/Controller/AdminProjectsController.js":
+/*!***********************************************************************!*\
+  !*** ./resources/js/components/Controller/AdminProjectsController.js ***!
+  \***********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _View_AdminProjectsView__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../View/AdminProjectsView */ "./resources/js/components/View/AdminProjectsView.js");
+/* harmony import */ var _Models_ProjectModel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Models/ProjectModel */ "./resources/js/components/Models/ProjectModel.js");
+/* harmony import */ var _redux_ReduxStore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/redux/ReduxStore */ "./resources/js/redux/ReduxStore.js");
+/* harmony import */ var _redux_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/redux/actions */ "./resources/js/redux/actions.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -73096,12 +73139,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
-
-function AdminController() {
+function AdminProjectsController() {
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    _Models_ProjectModel__WEBPACK_IMPORTED_MODULE_3__["Project"].all().then(function (response) {
-      _redux_ReduxStore__WEBPACK_IMPORTED_MODULE_5__["store"].dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_6__["SaveProjectsData"])(response));
+    _Models_ProjectModel__WEBPACK_IMPORTED_MODULE_2__["Project"].all().then(function (response) {
+      _redux_ReduxStore__WEBPACK_IMPORTED_MODULE_3__["store"].dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_4__["SaveProjectsData"])(response));
     });
   }, []);
 
@@ -73115,7 +73156,7 @@ function AdminController() {
       setNewProjectState = _useState2[1];
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    _redux_ReduxStore__WEBPACK_IMPORTED_MODULE_5__["store"].dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_6__["SetNewProjectState"])(newProjectState));
+    _redux_ReduxStore__WEBPACK_IMPORTED_MODULE_3__["store"].dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_4__["SetNewProjectState"])(newProjectState));
   }, [newProjectState]);
 
   var OpenNewProjectArea = function OpenNewProjectArea(e) {
@@ -73145,8 +73186,8 @@ function AdminController() {
 
   var SaveNewProject = function SaveNewProject(e) {
     e.preventDefault();
-    _Models_ProjectModel__WEBPACK_IMPORTED_MODULE_3__["Project"].create(newProjectState).then(function (response) {
-      _redux_ReduxStore__WEBPACK_IMPORTED_MODULE_5__["store"].dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_6__["SaveProjectsData"])(response));
+    _Models_ProjectModel__WEBPACK_IMPORTED_MODULE_2__["Project"].create(newProjectState).then(function (response) {
+      _redux_ReduxStore__WEBPACK_IMPORTED_MODULE_3__["store"].dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_4__["SaveProjectsData"])(response));
       setNewProjectState({
         isOpened: true,
         title: '',
@@ -73155,18 +73196,122 @@ function AdminController() {
     });
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_View_AdminView__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_View_AdminProjectsView__WEBPACK_IMPORTED_MODULE_1__["default"], {
     OpenNewProjectArea: OpenNewProjectArea,
     handleNewProjectChange: handleNewProjectChange,
     SaveNewProject: SaveNewProject
   });
 }
 
-if (document.getElementById('admin-component')) {
-  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_redux__WEBPACK_IMPORTED_MODULE_4__["Provider"], {
-    store: _redux_ReduxStore__WEBPACK_IMPORTED_MODULE_5__["store"]
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(AdminController, null)), document.getElementById('admin-component'));
+/* harmony default export */ __webpack_exports__["default"] = (AdminProjectsController);
+
+/***/ }),
+
+/***/ "./resources/js/components/Controller/AdminTasksController.js":
+/*!********************************************************************!*\
+  !*** ./resources/js/components/Controller/AdminTasksController.js ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _View_AdminTasksView__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../View/AdminTasksView */ "./resources/js/components/View/AdminTasksView.js");
+/* harmony import */ var _Models_TaskModel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Models/TaskModel */ "./resources/js/components/Models/TaskModel.js");
+/* harmony import */ var _redux_ReduxStore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/redux/ReduxStore */ "./resources/js/redux/ReduxStore.js");
+/* harmony import */ var _redux_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/redux/actions */ "./resources/js/redux/actions.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+function AdminTasksController() {
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    _Models_TaskModel__WEBPACK_IMPORTED_MODULE_2__["Task"].all().then(function (response) {
+      _redux_ReduxStore__WEBPACK_IMPORTED_MODULE_3__["store"].dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_4__["SaveTasksData"])(response));
+    });
+  }, []);
+
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
+    isOpened: false,
+    title: '',
+    description: ''
+  }),
+      _useState2 = _slicedToArray(_useState, 2),
+      newTaskState = _useState2[0],
+      setNewTaskState = _useState2[1];
+
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    _redux_ReduxStore__WEBPACK_IMPORTED_MODULE_3__["store"].dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_4__["SetNewTaskState"])(newTaskState));
+  }, [newTaskState]);
+
+  var OpenNewTaskArea = function OpenNewTaskArea(e) {
+    e.preventDefault();
+
+    if (newTaskState.isOpened == false) {
+      setNewTaskState({
+        isOpened: true,
+        title: '',
+        description: ''
+      });
+    } else {
+      setNewTaskState({
+        isOpened: false,
+        title: '',
+        description: ''
+      });
+    }
+  };
+
+  var handleNewTaskChange = function handleNewTaskChange(e) {
+    e.preventDefault();
+    setNewTaskState(function (prevState) {
+      return _objectSpread(_objectSpread({}, prevState), {}, _defineProperty({}, e.target.name, e.target.value));
+    });
+  };
+
+  var SaveNewTask = function SaveNewTask(e) {
+    e.preventDefault();
+    _Models_TaskModel__WEBPACK_IMPORTED_MODULE_2__["Task"].create(newTaskState).then(function (response) {
+      _redux_ReduxStore__WEBPACK_IMPORTED_MODULE_3__["store"].dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_4__["SaveTasksData"])(response));
+      setNewTaskState({
+        isOpened: true,
+        title: '',
+        description: ''
+      });
+    });
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_View_AdminTasksView__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    OpenNewTaskArea: OpenNewTaskArea,
+    handleNewTaskChange: handleNewTaskChange,
+    SaveNewTask: SaveNewTask
+  });
 }
+
+/* harmony default export */ __webpack_exports__["default"] = (AdminTasksController);
 
 /***/ }),
 
@@ -73335,6 +73480,112 @@ var Project = new ProjectModel();
 
 /***/ }),
 
+/***/ "./resources/js/components/Models/TaskModel.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/Models/TaskModel.js ***!
+  \*****************************************************/
+/*! exports provided: Task */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Task", function() { return Task; });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var TaskModel = /*#__PURE__*/function () {
+  function TaskModel() {
+    _classCallCheck(this, TaskModel);
+  }
+
+  _createClass(TaskModel, [{
+    key: "all",
+    value: function () {
+      var _all = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var url, _yield$axios, message, status;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                url = '/api/tasks/all';
+                _context.next = 3;
+                return axios(url);
+
+              case 3:
+                _yield$axios = _context.sent;
+                message = _yield$axios.data.message;
+                status = _yield$axios.status;
+                return _context.abrupt("return", message);
+
+              case 7:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      function all() {
+        return _all.apply(this, arguments);
+      }
+
+      return all;
+    }()
+  }, {
+    key: "create",
+    value: function () {
+      var _create = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(data) {
+        var url, _yield$axios$post, message, status;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                url = '/api/tasks/create';
+                _context2.next = 3;
+                return axios.post(url, data);
+
+              case 3:
+                _yield$axios$post = _context2.sent;
+                message = _yield$axios$post.data.message;
+                status = _yield$axios$post.status;
+                return _context2.abrupt("return", message);
+
+              case 7:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      function create(_x) {
+        return _create.apply(this, arguments);
+      }
+
+      return create;
+    }()
+  }]);
+
+  return TaskModel;
+}();
+
+var Task = new TaskModel();
+
+/***/ }),
+
 /***/ "./resources/js/components/View/AdminProjectsView.js":
 /*!***********************************************************!*\
   !*** ./resources/js/components/View/AdminProjectsView.js ***!
@@ -73426,11 +73677,50 @@ var AdminProjectsViewWrapped = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _redux_ReduxStore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/redux/ReduxStore */ "./resources/js/redux/ReduxStore.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+
 
 
 function AdminTasksView(props) {
-  var tasks = [];
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Tasks"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+  var tasks = props.tasks;
+  var OpenNewTaskArea = props.OpenNewTaskArea;
+  var NewTaskState = props.NewTaskState;
+  var handleNewTaskChange = props.handleNewTaskChange;
+  var saveBtnEnabled = props.NewTaskState && props.NewTaskState.title.length > 0 ? '' : 'disabled';
+  var SaveNewTask = props.SaveNewTask;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "d-flex flex-wrap"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-12 col-md-6 col-lg-3 m-1"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    onClick: OpenNewTaskArea,
+    className: "btn btn-info m-1 w-100"
+  }, NewTaskState.isOpened == false ? 'Dodaj nowy task' : 'Zamknij'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    onClick: SaveNewTask,
+    className: "btn btn-success m-1 w-100 " + saveBtnEnabled
+  }, "Zapisz")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-12 col-md-5 col-lg-8 m-1 " + (NewTaskState.isOpened == false ? 'invisible' : '')
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "input-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    onChange: handleNewTaskChange,
+    name: "title",
+    className: "form-control m-1",
+    type: "text",
+    placeholder: "Nazwa zadania",
+    value: NewTaskState.title || ''
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "input-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    onChange: handleNewTaskChange,
+    name: "description",
+    className: "form-control m-1",
+    type: "text",
+    placeholder: "Opis zadania",
+    value: NewTaskState.description || ''
+  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Tasks"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
     className: "list-group"
   }, tasks.map(function (task) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
@@ -73444,48 +73734,15 @@ function AdminTasksView(props) {
   })));
 }
 
-/* harmony default export */ __webpack_exports__["default"] = (AdminTasksView);
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    tasks: state.TasksData,
+    NewTaskState: state.NewTaskState
+  };
+};
 
-/***/ }),
-
-/***/ "./resources/js/components/View/AdminView.js":
-/*!***************************************************!*\
-  !*** ./resources/js/components/View/AdminView.js ***!
-  \***************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _AdminProjectsView__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminProjectsView */ "./resources/js/components/View/AdminProjectsView.js");
-/* harmony import */ var _AdminTasksView__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AdminTasksView */ "./resources/js/components/View/AdminTasksView.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-
-
-
-
-
-function AdminView(props) {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["BrowserRouter"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], {
-    path: "/admin/projects",
-    exact: true,
-    render: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AdminProjectsView__WEBPACK_IMPORTED_MODULE_1__["default"], {
-        OpenNewProjectArea: props.OpenNewProjectArea,
-        handleNewProjectChange: props.handleNewProjectChange,
-        SaveNewProject: props.SaveNewProject
-      });
-    }
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], {
-    path: "/admin/tasks",
-    exact: true,
-    component: _AdminTasksView__WEBPACK_IMPORTED_MODULE_2__["default"]
-  }))));
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (AdminView);
+var AdminTasksViewWrapped = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps)(AdminTasksView);
+/* harmony default export */ __webpack_exports__["default"] = (AdminTasksViewWrapped);
 
 /***/ }),
 
@@ -73540,13 +73797,15 @@ var store = Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_reducers_
 /*!***************************************!*\
   !*** ./resources/js/redux/actions.js ***!
   \***************************************/
-/*! exports provided: SaveProjectsData, SetNewProjectState */
+/*! exports provided: SaveProjectsData, SetNewProjectState, SaveTasksData, SetNewTaskState */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SaveProjectsData", function() { return SaveProjectsData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SetNewProjectState", function() { return SetNewProjectState; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SaveTasksData", function() { return SaveTasksData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SetNewTaskState", function() { return SetNewTaskState; });
 var SaveProjectsData = function SaveProjectsData(array) {
   return {
     type: 'ProjectsData',
@@ -73556,6 +73815,18 @@ var SaveProjectsData = function SaveProjectsData(array) {
 var SetNewProjectState = function SetNewProjectState(object) {
   return {
     type: 'NewProjectState',
+    object: object
+  };
+};
+var SaveTasksData = function SaveTasksData(array) {
+  return {
+    type: 'TasksData',
+    array: array
+  };
+};
+var SetNewTaskState = function SetNewTaskState(object) {
+  return {
+    type: 'NewTaskState',
     object: object
   };
 };
@@ -73588,6 +73859,32 @@ var NewProjectState = function NewProjectState() {
 
 /***/ }),
 
+/***/ "./resources/js/redux/reducers/NewTaskState.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/redux/reducers/NewTaskState.js ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var NewTaskState = function NewTaskState() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case 'NewTaskState':
+      return action.object;
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (NewTaskState);
+
+/***/ }),
+
 /***/ "./resources/js/redux/reducers/ProjectsData.js":
 /*!*****************************************************!*\
   !*** ./resources/js/redux/reducers/ProjectsData.js ***!
@@ -73598,7 +73895,7 @@ var NewProjectState = function NewProjectState() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 var ProjectsData = function ProjectsData() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
@@ -73614,6 +73911,32 @@ var ProjectsData = function ProjectsData() {
 
 /***/ }),
 
+/***/ "./resources/js/redux/reducers/TasksData.js":
+/*!**************************************************!*\
+  !*** ./resources/js/redux/reducers/TasksData.js ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var TasksData = function TasksData() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case 'TasksData':
+      return action.array;
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (TasksData);
+
+/***/ }),
+
 /***/ "./resources/js/redux/reducers/index.js":
 /*!**********************************************!*\
   !*** ./resources/js/redux/reducers/index.js ***!
@@ -73625,13 +73948,19 @@ var ProjectsData = function ProjectsData() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ProjectsData__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProjectsData */ "./resources/js/redux/reducers/ProjectsData.js");
 /* harmony import */ var _NewProjectState__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NewProjectState */ "./resources/js/redux/reducers/NewProjectState.js");
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var _TasksData__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./TasksData */ "./resources/js/redux/reducers/TasksData.js");
+/* harmony import */ var _NewTaskState__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./NewTaskState */ "./resources/js/redux/reducers/NewTaskState.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 
 
 
-var allReducers = Object(redux__WEBPACK_IMPORTED_MODULE_2__["combineReducers"])({
+
+
+var allReducers = Object(redux__WEBPACK_IMPORTED_MODULE_4__["combineReducers"])({
   ProjectsData: _ProjectsData__WEBPACK_IMPORTED_MODULE_0__["default"],
-  NewProjectState: _NewProjectState__WEBPACK_IMPORTED_MODULE_1__["default"]
+  NewProjectState: _NewProjectState__WEBPACK_IMPORTED_MODULE_1__["default"],
+  TasksData: _TasksData__WEBPACK_IMPORTED_MODULE_2__["default"],
+  NewTaskState: _NewTaskState__WEBPACK_IMPORTED_MODULE_3__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (allReducers);
 

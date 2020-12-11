@@ -10,3 +10,15 @@ export const SetNewProjectState = (object) =>{
 		object: object
 	}
 }
+export const SaveTasksData = (array) =>{
+	return {
+		type: 'TasksData',
+		array: array
+	}
+}
+export const SetNewTaskState = (object) =>{
+	return {
+		type: 'NewTaskState',
+		object: object
+	}
+}
