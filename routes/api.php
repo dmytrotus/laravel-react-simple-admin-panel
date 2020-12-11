@@ -17,7 +17,9 @@ use Illuminate\Support\Facades\Route;
 /*Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });*/
-Route::get('projects/all', 'HomeController@projectsAll');
-Route::post('projects/create', 'HomeController@createProject');
-Route::get('tasks/all', 'HomeController@tasksAll');
-Route::post('tasks/create', 'HomeController@createTask');
+Route::group(['middleware' => ['auth:api']], function () {
+	Route::get('projects/all', 'HomeController@projectsAll');
+	Route::post('projects/create', 'HomeController@createProject');
+	Route::get('tasks/all', 'HomeController@tasksAll');
+	Route::post('tasks/create', 'HomeController@createTask');
+});
