@@ -19,6 +19,7 @@ class ProjectResource extends JsonResource
             'title' => $this->title,
             'description' => $this->description,
             'author' => $this->author->name,
+            'authorToken' => $this->author->api_token
         ];
     }
 }

@@ -10,6 +10,10 @@ function AdminProjectsView(props) {
     const handleNewProjectChange = props.handleNewProjectChange;
     const saveBtnEnabled = props.NewProjectState && props.NewProjectState.title.length > 0 ? '' : 'disabled';
     const SaveNewProject = props.SaveNewProject;
+    //edit project
+    const openEditForm = props.openEditForm;
+    const editProject = props.editProject;
+    const saveEditButton = props.editProjectState && props.editProjectState.isOpened == true ? true : false;
 
     return (
     	<Fragment>
@@ -42,7 +46,10 @@ function AdminProjectsView(props) {
 		  		<b>Nazwa projektu: </b>{project.title}<b> Opis: </b>{project.description}<b> Stworzony przez:</b> {project.author}
 		  	</div>
 		  	<div>
-		  		<button className="btn btn-sm btn-info">Edytuj</button>
+		  		<button onClick={openEditForm} data-id={project.id} data-author-token={project.authorToken}
+		  		className={"btn btn-sm btn-info " + (saveEditButton == true ? 'd-none':'')}>Edytuj</button>
+		  		<button onClick={editProject}
+		  		className={'btn btn-sm btn-info '+ (saveEditButton == true ? '':'d-none')}>Zapisz</button>
 		  		<button className="btn btn-sm btn-danger ml-1">Usuń</button>
 		  	</div>
 		  </li>

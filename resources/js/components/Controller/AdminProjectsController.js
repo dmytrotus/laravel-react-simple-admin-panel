@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import AdminProjectsView from '../View/AdminProjectsView';
 import { Project } from '../Models/ProjectModel';
 import { store } from '@/redux/ReduxStore';
 import { SaveProjectsData } from '@/redux/actions';
 import { SetNewProjectState } from '@/redux/actions';
+import Modal from '../View/Modal';
+import Passwords from '@/app/Passwords';
 
 function AdminProjectsController() {
 
@@ -55,11 +57,57 @@ function AdminProjectsController() {
 
     }
 
+    const[editProjectState, setEditProjectState] = useState({
+        isOpened: false,
+        title: '',
+        description: '',
+        project_id: ''
+    })
+
+    const[modalState, setModalState] = useState({
+        message: ''
+    })
+
+    const openEditForm = (e) => {
+        e.preventDefault();
+        const project_id = e.target.getAttribute('data-id');
+        const author_token = e.target.getAttribute('data-author-token');
+        if(new Passwords().token != author_token)
+        {
+            setModalState({
+                message: 'Nie możesz edytować nie swój projekt'
+            });
+            $('#exampleModal').modal('show');
+            return;
+        }
+        setEditProjectState({
+            isOpened: true,
+            title: '',
+            description: '',
+            project_id: project_id
+        })
+
+
+
+
+    }
+
+    const editProject = (e) => {
+        e.preventDefault();
+
+    }
+
     return (
+        <Fragment>
             <AdminProjectsView
             OpenNewProjectArea={OpenNewProjectArea}
             handleNewProjectChange={handleNewProjectChange}
-            SaveNewProject={SaveNewProject} />
+            SaveNewProject={SaveNewProject}
+            openEditForm={openEditForm}
+            editProjectState={editProjectState}
+             />
+            <Modal modalState={modalState} />
+        </Fragment>
     );
 }
 

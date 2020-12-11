@@ -45,6 +45,27 @@ class HomeController extends Controller
         return ProjectResource::collection($projects);
     }
 
+    public function updateProject(Request $request){
+
+        $token = $request->bearerToken();
+        $user = User::where('api_token', $token)->firstOrFail();
+
+        $project = Project::find($request->project_id);
+        if($project->user_id != $user->id){
+            return response()->json([
+                'data' => 'Nie możesz edytować nie swój projekt'
+            ], 401);
+        };
+
+        $project->title = $request->title;
+        $project->description = $request->description;
+        $project->save();
+
+        $projects = Project::orderBy('created_at', 'desc')->get();
+
+        return ProjectResource::collection($projects);
+    }
+
     public function tasksAll(){
 
         $tasks = Task::orderBy('created_at', 'desc')->get();

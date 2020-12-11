@@ -18,6 +18,12 @@ class ProjectModel extends Passwords
         return data;
     }
 
+    async update(state) {
+        const url = '/api/projects/update';
+        const {data: {data}, status} = await axios.post(url, state, this.headers);
+        return data;
+    }
+
 }
 
 export const Project = new ProjectModel();
