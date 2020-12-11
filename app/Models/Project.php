@@ -13,4 +13,13 @@ class Project extends Model
         'title',
         'description',
     ];
+
+    public function author(){
+    	return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function tasks(){
+
+    	return $this->hasMany(Task::class);
+    }
 }

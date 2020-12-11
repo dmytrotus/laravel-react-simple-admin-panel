@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Task;
+use App\Models\Role;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class TaskFactory extends Factory
+class RoleFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Task::class;
+    protected $model = Role::class;
 
     /**
      * Define the model's default state.
@@ -20,13 +20,13 @@ class TaskFactory extends Factory
      * @return array
      */
     public function definition()
-    {   
-        $title = 'Task:'.rand(0,999);
-        $description = $this->faker->text('25');
+    {       
+        $role_name = ['admin', 'user'];
+        $user_id = [1,2];
+
         return [
-            'title' => $title,
-            'description' => $description,
-            'project_id' => rand(1,20),
+            'role_name' => $this->faker->randomElement($role_name),
+            'user_id' => $this->faker->randomElement($user_id),
         ];
     }
 }

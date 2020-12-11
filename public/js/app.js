@@ -73067,7 +73067,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _AdminProjectsController__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AdminProjectsController */ "./resources/js/components/Controller/AdminProjectsController.js");
-/* harmony import */ var _AdminTasksController__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./AdminTasksController */ "./resources/js/components/Controller/AdminTasksController.js");
+/* harmony import */ var _AdminTasksController__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./AdminTasksController */ "./resources/js/components/Controller/AdminTasksController.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _redux_ReduxStore__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/redux/ReduxStore */ "./resources/js/redux/ReduxStore.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
@@ -73087,7 +73087,7 @@ function AdminController() {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__["Route"], {
     path: "/admin/tasks",
     exact: true,
-    component: _AdminTasksController__WEBPACK_IMPORTED_MODULE_7__["default"]
+    component: _AdminTasksController__WEBPACK_IMPORTED_MODULE_3__["default"]
   }))));
 }
 
@@ -73720,13 +73720,13 @@ function AdminTasksView(props) {
     type: "text",
     placeholder: "Opis zadania",
     value: NewTaskState.description || ''
-  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Tasks"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Tasks (", tasks.length, ")"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
     className: "list-group"
   }, tasks.map(function (task) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
       key: task.id,
       className: "list-group-item d-flex justify-content-between"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Nazwa projektu: "), task.title, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, " Opis: "), task.description), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Nazwa: "), task.title, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, " Opis: "), task.description, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Stworzony przez:"), " ", task.author), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
       className: "btn btn-sm btn-info"
     }, "Edytuj"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
       className: "btn btn-sm btn-danger ml-1"

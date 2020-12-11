@@ -34,12 +34,12 @@ function AdminTasksView(props) {
                 </div>
             </div>
         </div>
-    	<h2>Tasks</h2>
+    	<h2>Tasks ({tasks.length})</h2>
     	<ul className="list-group">
     	{tasks.map(task =>
 		  <li key={task.id} className="list-group-item d-flex justify-content-between">
 		  	<div>
-		  		<b>Nazwa projektu: </b>{task.title}<b> Opis: </b>{task.description}
+		  		<b>Nazwa: </b>{task.title}<b> Opis: </b>{task.description} <b>Stworzony przez:</b> {task.author}
 		  	</div>
 		  	<div>
 		  		<button className="btn btn-sm btn-info">Edytuj</button>

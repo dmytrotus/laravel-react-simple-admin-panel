@@ -26,6 +26,7 @@ class ProjectFactory extends Factory
         return [
             'title' => $title,
             'description' => $description,
+            'user_id' => rand(1,2),
         ];
     }
 }

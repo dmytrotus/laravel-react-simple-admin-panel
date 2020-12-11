@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Models\Task;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -47,6 +48,7 @@ class HomeController extends Controller
     public function tasksAll(){
 
         $tasks = Task::orderBy('created_at', 'desc')->get();
+        
 
         return response()->json([
             'success' => true,

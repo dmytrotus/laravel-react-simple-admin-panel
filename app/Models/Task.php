@@ -13,4 +13,8 @@ class Task extends Model
         'title',
         'description',
     ];
+
+    public function project(){
+    	return $this->belongsTo(Project::class, 'project_id');
+    }
 }
