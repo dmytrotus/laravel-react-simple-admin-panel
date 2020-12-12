@@ -122,6 +122,34 @@ function AdminProjectsController(props) {
         })
     }
 
+    const deleteProjectModal = (e) => {
+        e.preventDefault();
+        const project_id = e.target.getAttribute('data-id');
+        const author_token = e.target.getAttribute('data-author-token');
+        if(new Passwords().token != author_token)
+        {
+            setModalState({
+                message: 'Nie możesz usuwać nie swój projekt'
+            });
+            $('#exampleModal').modal('show');
+            return;
+        }
+        setModalState({
+            message: 'Czy napewno usuńąć projekt?',
+            removeBtn: true,
+            project_id: project_id
+        });
+        $('#exampleModal').modal('show');
+    }
+
+    const confirmRemove = (e) => {
+        e.preventDefault();
+        Project.delete(modalState).then(response => {
+            store.dispatch(SaveProjectsData( response ));
+            $('#exampleModal').modal('hide');
+        })
+    }
+
     return (
         <Fragment>
             <AdminProjectsView
@@ -133,8 +161,12 @@ function AdminProjectsController(props) {
             editableProject={editableProject}
             handleEditProject={handleEditProject}
             updateProject={updateProject}
+            deleteProjectModal={deleteProjectModal}
              />
-            <Modal modalState={modalState} />
+            <Modal 
+            modalState={modalState}
+            confirmRemove={confirmRemove}
+             />
         </Fragment>
     );
 }

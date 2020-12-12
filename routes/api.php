@@ -24,6 +24,7 @@ Route::group(['middleware' => ['auth:api']], function () {
 	Route::group(['middleware' => ['adminRole']], function () {
 		Route::post('projects/create', 'HomeController@createProject');
 		Route::post('projects/update', 'HomeController@updateProject');
+		Route::post('projects/delete', 'HomeController@deleteProject');
 		Route::post('tasks/create', 'HomeController@createTask');
 	});
 });

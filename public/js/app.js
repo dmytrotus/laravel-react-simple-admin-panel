@@ -73314,6 +73314,35 @@ function AdminProjectsController(props) {
     });
   };
 
+  var deleteProjectModal = function deleteProjectModal(e) {
+    e.preventDefault();
+    var project_id = e.target.getAttribute('data-id');
+    var author_token = e.target.getAttribute('data-author-token');
+
+    if (new _app_Passwords__WEBPACK_IMPORTED_MODULE_6__["default"]().token != author_token) {
+      setModalState({
+        message: 'Nie możesz usuwać nie swój projekt'
+      });
+      $('#exampleModal').modal('show');
+      return;
+    }
+
+    setModalState({
+      message: 'Czy napewno usuńąć projekt?',
+      removeBtn: true,
+      project_id: project_id
+    });
+    $('#exampleModal').modal('show');
+  };
+
+  var confirmRemove = function confirmRemove(e) {
+    e.preventDefault();
+    _Models_ProjectModel__WEBPACK_IMPORTED_MODULE_2__["Project"]["delete"](modalState).then(function (response) {
+      _redux_ReduxStore__WEBPACK_IMPORTED_MODULE_3__["store"].dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_4__["SaveProjectsData"])(response));
+      $('#exampleModal').modal('hide');
+    });
+  };
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_View_AdminProjectsView__WEBPACK_IMPORTED_MODULE_1__["default"], {
     OpenNewProjectArea: OpenNewProjectArea,
     handleNewProjectChange: handleNewProjectChange,
@@ -73322,9 +73351,11 @@ function AdminProjectsController(props) {
     editProjectState: editProjectState,
     editableProject: editableProject,
     handleEditProject: handleEditProject,
-    updateProject: updateProject
+    updateProject: updateProject,
+    deleteProjectModal: deleteProjectModal
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_View_Modal__WEBPACK_IMPORTED_MODULE_5__["default"], {
-    modalState: modalState
+    modalState: modalState,
+    confirmRemove: confirmRemove
   }));
 }
 
@@ -73715,6 +73746,40 @@ var ProjectModel = /*#__PURE__*/function (_Passwords) {
 
       return update;
     }()
+  }, {
+    key: "delete",
+    value: function () {
+      var _delete2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(state) {
+        var url, _yield$axios$post3, data, status;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                url = '/api/projects/delete';
+                _context4.next = 3;
+                return axios.post(url, state, this.headers);
+
+              case 3:
+                _yield$axios$post3 = _context4.sent;
+                data = _yield$axios$post3.data.data;
+                status = _yield$axios$post3.status;
+                return _context4.abrupt("return", data);
+
+              case 7:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this);
+      }));
+
+      function _delete(_x3) {
+        return _delete2.apply(this, arguments);
+      }
+
+      return _delete;
+    }()
   }]);
 
   return ProjectModel;
@@ -73884,7 +73949,9 @@ function AdminProjectsView(props) {
   var handleEditProject = props.handleEditProject;
   var editableProject = props.editableProject;
   var editProjectState = props.editProjectState;
-  var updateProject = props.updateProject;
+  var updateProject = props.updateProject; //delete project
+
+  var deleteProjectModal = props.deleteProjectModal;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "d-flex flex-wrap"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -73967,6 +74034,9 @@ function AdminProjectsView(props) {
       onClick: updateProject,
       className: 'btn btn-sm btn-success ' + (editableProject(project.id) == true ? '' : 'd-none')
     }, "Zapisz"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      onClick: deleteProjectModal,
+      "data-id": project.id,
+      "data-author-token": project.authorToken,
       className: "btn btn-sm btn-danger ml-1"
     }, "Usu\u0144")));
   })))))));
@@ -74117,6 +74187,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function Modal(props) {
   var modalState = props.modalState;
+  var confirmRemove = props.confirmRemove;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "modal fade",
     id: "exampleModal",
@@ -74140,7 +74211,11 @@ function Modal(props) {
     type: "button",
     className: "btn btn-secondary",
     "data-dismiss": "modal"
-  }, "Zamknij")))));
+  }, "Zamknij"), modalState.removeBtn && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    onClick: confirmRemove,
+    type: "button",
+    className: "btn btn-danger"
+  }, "Usu\u0144")))));
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Modal);

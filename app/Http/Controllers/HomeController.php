@@ -66,6 +66,13 @@ class HomeController extends Controller
         return ProjectResource::collection($projects);
     }
 
+    public function deleteProject(Request $request){
+        Project::find($request->project_id)->delete();
+        Task::where('project_id', $request->project_id)->delete();
+        $projects = Project::orderBy('created_at', 'desc')->get();
+        return ProjectResource::collection($projects);
+    }
+
     public function tasksAll(){
 
         $tasks = Task::orderBy('created_at', 'desc')->get();

@@ -24,6 +24,12 @@ class ProjectModel extends Passwords
         return data;
     }
 
+    async delete(state) {
+        const url = '/api/projects/delete';
+        const {data: {data}, status} = await axios.post(url, state, this.headers);
+        return data;
+    }
+
 }
 
 export const Project = new ProjectModel();

@@ -16,6 +16,8 @@ function AdminProjectsView(props) {
     const editableProject = props.editableProject;
     const editProjectState = props.editProjectState;
     const updateProject = props.updateProject;
+    //delete project
+    const deleteProjectModal = props.deleteProjectModal;
 
     return (
     	<Fragment>
@@ -80,7 +82,8 @@ function AdminProjectsView(props) {
 						  		className={"btn btn-sm btn-info " + (editableProject(project.id) == true ? 'd-none':'')}>Edytuj</button>
 						  		<button onClick={updateProject}
 						  		className={'btn btn-sm btn-success '+ (editableProject(project.id) == true ? '':'d-none')}>Zapisz</button>
-						  		<button className="btn btn-sm btn-danger ml-1">Usuń</button>
+						  		<button onClick={deleteProjectModal} data-id={project.id} data-author-token={project.authorToken}
+						  		 className="btn btn-sm btn-danger ml-1">Usuń</button>
 						  		</td>
                             </tr>
                             )}
