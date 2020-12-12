@@ -92,4 +92,22 @@ class HomeController extends Controller
 
         return TaskResource::collection($tasks);
     }
+
+    public function updateTask(Request $request){
+
+        $task = Task::find($request->task_id);
+        $task->title = $request->title;
+        $task->description = $request->description;
+        $task->save();
+
+        $tasks = Task::orderBy('created_at', 'desc')->get();
+
+        return TaskResource::collection($tasks);
+    }
+
+    public function deleteTask(Request $request){
+        Task::find($request->task_id)->delete();
+        $tasks = Task::orderBy('created_at', 'desc')->get();
+        return TaskResource::collection($tasks);
+    }
 }

@@ -18,6 +18,18 @@ class TaskModel extends Passwords
         return data;
     }
 
+    async update(state) {
+        const url = '/api/tasks/update';
+        const {data: {data}, status} = await axios.post(url, state, this.headers);
+        return data;
+    }
+
+    async delete(state) {
+        const url = '/api/tasks/delete';
+        const {data: {data}, status} = await axios.post(url, state, this.headers);
+        return data;
+    }
+
 }
 
 export const Task = new TaskModel();

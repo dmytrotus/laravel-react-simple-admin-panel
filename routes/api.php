@@ -26,5 +26,7 @@ Route::group(['middleware' => ['auth:api']], function () {
 		Route::post('projects/update', 'HomeController@updateProject');
 		Route::post('projects/delete', 'HomeController@deleteProject');
 		Route::post('tasks/create', 'HomeController@createTask');
+		Route::post('tasks/update', 'HomeController@updateTask');
+		Route::post('tasks/delete', 'HomeController@deleteTask');
 	});
 });

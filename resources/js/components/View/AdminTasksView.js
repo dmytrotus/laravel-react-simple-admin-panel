@@ -12,6 +12,14 @@ function AdminTasksView(props) {
     props.NewTaskState.project_id.length > 0 ? '' : 'disabled';
     const SaveNewTask = props.SaveNewTask;
     const projects = props.projects;
+    //edit task
+    const openEditForm = props.openEditForm;
+    const handleEditTask = props.handleEditTask;
+    const editableTask = props.editableTask;
+    const editTaskState = props.editTaskState;
+    const updateTask = props.updateTask;
+    //delete task
+    const deleteTaskModal = props.deleteTaskModal;
 
 
     return (
@@ -52,27 +60,41 @@ function AdminTasksView(props) {
                     <table className="table table-centered table-nowrap mb-0 rounded">
                         <thead className="thead-light">
                             <tr>
-                                <th className="border-0">Nazwa</th>
-                                <th className="border-0">Opis</th>
-                                <th className="border-0">Do projektu</th>
-                                <th className="border-0"></th>
+                                <th className="border-0 w-25">Nazwa</th>
+                                <th className="border-0 w-25">Opis</th>
+                                <th className="border-0 w-25">Do projektu</th>
+                                <th className="border-0 w-25"></th>
                             </tr>
                         </thead>
                         <tbody>
                             {tasks.map(task =>
                             <tr key={task.id}>
                                 <td className="border-0">
-                                   {task.title} 
+                                {(editableTask(task.id) == false ?
+                                (<span>{task.title}</span>):
+                                (<input onChange={handleEditTask} name="title"
+                                className="form-control" type="text" placeholder="Nazwa projektu"
+                                value={editTaskState.title || ''} />)
+                                 )}
                                 </td>
                                 <td className="border-0">
-                                   {task.description}
+                                    {(editableTask(task.id) == false ?
+                                   (<span>{task.description}</span>):
+                                   (<input onChange={handleEditTask} name="description"
+                                    className="form-control" type="text" placeholder="Opis projektu"
+                                    value={editTaskState.description || ''} />)
+                                   )}
                                 </td>
                                 <td className="border-0">
                                     {task.project}
                                 </td>
                                 <td className="border-0">
-                                  <button className="btn btn-sm btn-info">Edytuj</button>
-                                  <button className="btn btn-sm btn-danger ml-1">Usuń</button>
+                                  <button onClick={openEditForm} data-id={task.id}
+                                  className={"btn btn-sm btn-info " + (editableTask(task.id) == true ? 'd-none':'')}>Edytuj</button>
+                                  <button onClick={updateTask}
+                                  className={'btn btn-sm btn-success '+ (editableTask(task.id) == true ? '':'d-none')}>Zapisz</button>
+                                  <button onClick={deleteTaskModal} data-id={task.id}
+                                   className="btn btn-sm btn-danger ml-1">Usuń</button>
                                 </td>
                             </tr>
                             )}
