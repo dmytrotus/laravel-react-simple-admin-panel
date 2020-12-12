@@ -6,8 +6,9 @@ import { SaveProjectsData } from '@/redux/actions';
 import { SetNewProjectState } from '@/redux/actions';
 import Modal from '../View/Modal';
 import Passwords from '@/app/Passwords';
+import { connect } from 'react-redux';
 
-function AdminProjectsController() {
+function AdminProjectsController(props) {
 
     const[newProjectState, setNewProjectState] = useState({
         isOpened: false,
@@ -68,6 +69,7 @@ function AdminProjectsController() {
         message: ''
     })
 
+    const projects = props.projects;
     const openEditForm = (e) => {
         e.preventDefault();
         const project_id = e.target.getAttribute('data-id');
@@ -80,21 +82,44 @@ function AdminProjectsController() {
             $('#exampleModal').modal('show');
             return;
         }
+
+        const choosenProject = projects.filter(el=>el.id == project_id)[0];
         setEditProjectState({
             isOpened: true,
-            title: '',
-            description: '',
+            title: choosenProject.title,
+            description: choosenProject.description,
             project_id: project_id
         })
+    }
 
-
-
+    const handleEditProject = (e) => {
+        e.persist();
+        setEditProjectState(prevState =>({
+            ...prevState,
+            [e.target.name]:e.target.value
+        }))
 
     }
 
-    const editProject = (e) => {
-        e.preventDefault();
+    const editableProject = (project_id) => {
+        if(editProjectState.isOpened == true && editProjectState.project_id == project_id){
+            return true;
+        } else {
+            return false;
+        }
+    }
 
+    const updateProject = (e) => {
+        e.preventDefault();
+        Project.update(editProjectState).then(response => {
+            store.dispatch(SaveProjectsData( response ));
+            setEditProjectState({
+                isOpened: false,
+                title: '',
+                description: '',
+                project_id: ''
+            })
+        })
     }
 
     return (
@@ -105,11 +130,21 @@ function AdminProjectsController() {
             SaveNewProject={SaveNewProject}
             openEditForm={openEditForm}
             editProjectState={editProjectState}
+            editableProject={editableProject}
+            handleEditProject={handleEditProject}
+            updateProject={updateProject}
              />
             <Modal modalState={modalState} />
         </Fragment>
     );
 }
 
+const mapStateToProps = state => {
+  return {
+    projects: state.ProjectsData
+  }
+}
 
-export default AdminProjectsController;
+const AdminProjectsControllerWrapped = connect(mapStateToProps)(AdminProjectsController);
+
+export default AdminProjectsControllerWrapped;

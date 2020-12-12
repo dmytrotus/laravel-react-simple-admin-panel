@@ -12,8 +12,10 @@ function AdminProjectsView(props) {
     const SaveNewProject = props.SaveNewProject;
     //edit project
     const openEditForm = props.openEditForm;
-    const editProject = props.editProject;
-    const saveEditButton = props.editProjectState && props.editProjectState.isOpened == true ? true : false;
+    const handleEditProject = props.handleEditProject;
+    const editableProject = props.editableProject;
+    const editProjectState = props.editProjectState;
+    const updateProject = props.updateProject;
 
     return (
     	<Fragment>
@@ -45,29 +47,39 @@ function AdminProjectsView(props) {
                     <table className="table table-centered table-nowrap mb-0 rounded">
                         <thead className="thead-light">
                             <tr>
-                                <th className="border-0">Nazwa projektu</th>
-                                <th className="border-0">Opis</th>
-                                <th className="border-0">Stworzony przez</th>
-                                <th className="border-0"></th>
+                                <th className="border-0 w-25">Nazwa projektu</th>
+                                <th className="border-0 w-25">Opis</th>
+                                <th className="border-0 w-25">Stworzony przez</th>
+                                <th className="border-0 w-25"></th>
                             </tr>
                         </thead>
                         <tbody>
                             {projects.map(project =>
                             <tr key={project.id}>
                                 <td className="border-0">
-                                   {project.title} 
+                                {(editableProject(project.id) == false ?
+                                (<span>{project.title}</span>):
+                                (<input onChange={handleEditProject} name="title"
+					    		className="form-control" type="text" placeholder="Nazwa projektu"
+					    		value={editProjectState.title || ''} />)
+                                 )}
                                 </td>
                                 <td className="border-0">
-                                   {project.description}
+                                	{(editableProject(project.id) == false ?
+                                   (<span>{project.description}</span>):
+                                   (<input onChange={handleEditProject} name="description"
+						    		className="form-control" type="text" placeholder="Opis projektu"
+						    		value={editProjectState.description || ''} />)
+                                   )}
                                 </td>
                                 <td className="border-0">
                                     {project.author}
                                 </td>
-                                <td className="border-0">
+                                <td className="border-0 text-center">
                                 <button onClick={openEditForm} data-id={project.id} data-author-token={project.authorToken}
-						  		className={"btn btn-sm btn-info " + (saveEditButton == true ? 'd-none':'')}>Edytuj</button>
-						  		<button onClick={editProject}
-						  		className={'btn btn-sm btn-info '+ (saveEditButton == true ? '':'d-none')}>Zapisz</button>
+						  		className={"btn btn-sm btn-info " + (editableProject(project.id) == true ? 'd-none':'')}>Edytuj</button>
+						  		<button onClick={updateProject}
+						  		className={'btn btn-sm btn-success '+ (editableProject(project.id) == true ? '':'d-none')}>Zapisz</button>
 						  		<button className="btn btn-sm btn-danger ml-1">Usuń</button>
 						  		</td>
                             </tr>

@@ -73163,6 +73163,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _redux_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/redux/actions */ "./resources/js/redux/actions.js");
 /* harmony import */ var _View_Modal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../View/Modal */ "./resources/js/components/View/Modal.js");
 /* harmony import */ var _app_Passwords__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/app/Passwords */ "./resources/js/app/Passwords.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -73190,7 +73191,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-function AdminProjectsController() {
+
+function AdminProjectsController(props) {
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
     isOpened: false,
     title: '',
@@ -73258,6 +73260,8 @@ function AdminProjectsController() {
       modalState = _useState6[0],
       setModalState = _useState6[1];
 
+  var projects = props.projects;
+
   var openEditForm = function openEditForm(e) {
     e.preventDefault();
     var project_id = e.target.getAttribute('data-id');
@@ -73271,16 +73275,43 @@ function AdminProjectsController() {
       return;
     }
 
+    var choosenProject = projects.filter(function (el) {
+      return el.id == project_id;
+    })[0];
     setEditProjectState({
       isOpened: true,
-      title: '',
-      description: '',
+      title: choosenProject.title,
+      description: choosenProject.description,
       project_id: project_id
     });
   };
 
-  var editProject = function editProject(e) {
+  var handleEditProject = function handleEditProject(e) {
+    e.persist();
+    setEditProjectState(function (prevState) {
+      return _objectSpread(_objectSpread({}, prevState), {}, _defineProperty({}, e.target.name, e.target.value));
+    });
+  };
+
+  var editableProject = function editableProject(project_id) {
+    if (editProjectState.isOpened == true && editProjectState.project_id == project_id) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  var updateProject = function updateProject(e) {
     e.preventDefault();
+    _Models_ProjectModel__WEBPACK_IMPORTED_MODULE_2__["Project"].update(editProjectState).then(function (response) {
+      _redux_ReduxStore__WEBPACK_IMPORTED_MODULE_3__["store"].dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_4__["SaveProjectsData"])(response));
+      setEditProjectState({
+        isOpened: false,
+        title: '',
+        description: '',
+        project_id: ''
+      });
+    });
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_View_AdminProjectsView__WEBPACK_IMPORTED_MODULE_1__["default"], {
@@ -73288,13 +73319,23 @@ function AdminProjectsController() {
     handleNewProjectChange: handleNewProjectChange,
     SaveNewProject: SaveNewProject,
     openEditForm: openEditForm,
-    editProjectState: editProjectState
+    editProjectState: editProjectState,
+    editableProject: editableProject,
+    handleEditProject: handleEditProject,
+    updateProject: updateProject
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_View_Modal__WEBPACK_IMPORTED_MODULE_5__["default"], {
     modalState: modalState
   }));
 }
 
-/* harmony default export */ __webpack_exports__["default"] = (AdminProjectsController);
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    projects: state.ProjectsData
+  };
+};
+
+var AdminProjectsControllerWrapped = Object(react_redux__WEBPACK_IMPORTED_MODULE_7__["connect"])(mapStateToProps)(AdminProjectsController);
+/* harmony default export */ __webpack_exports__["default"] = (AdminProjectsControllerWrapped);
 
 /***/ }),
 
@@ -73840,8 +73881,10 @@ function AdminProjectsView(props) {
   var SaveNewProject = props.SaveNewProject; //edit project
 
   var openEditForm = props.openEditForm;
-  var editProject = props.editProject;
-  var saveEditButton = props.editProjectState && props.editProjectState.isOpened == true ? true : false;
+  var handleEditProject = props.handleEditProject;
+  var editableProject = props.editableProject;
+  var editProjectState = props.editProjectState;
+  var updateProject = props.updateProject;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "d-flex flex-wrap"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -73883,32 +73926,46 @@ function AdminProjectsView(props) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", {
     className: "thead-light"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
-    className: "border-0"
+    className: "border-0 w-25"
   }, "Nazwa projektu"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
-    className: "border-0"
+    className: "border-0 w-25"
   }, "Opis"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
-    className: "border-0"
+    className: "border-0 w-25"
   }, "Stworzony przez"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
-    className: "border-0"
+    className: "border-0 w-25"
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, projects.map(function (project) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
       key: project.id
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
       className: "border-0"
-    }, project.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+    }, editableProject(project.id) == false ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, project.title) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      onChange: handleEditProject,
+      name: "title",
+      className: "form-control",
+      type: "text",
+      placeholder: "Nazwa projektu",
+      value: editProjectState.title || ''
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
       className: "border-0"
-    }, project.description), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+    }, editableProject(project.id) == false ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, project.description) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      onChange: handleEditProject,
+      name: "description",
+      className: "form-control",
+      type: "text",
+      placeholder: "Opis projektu",
+      value: editProjectState.description || ''
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
       className: "border-0"
     }, project.author), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
-      className: "border-0"
+      className: "border-0 text-center"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
       onClick: openEditForm,
       "data-id": project.id,
       "data-author-token": project.authorToken,
-      className: "btn btn-sm btn-info " + (saveEditButton == true ? 'd-none' : '')
+      className: "btn btn-sm btn-info " + (editableProject(project.id) == true ? 'd-none' : '')
     }, "Edytuj"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-      onClick: editProject,
-      className: 'btn btn-sm btn-info ' + (saveEditButton == true ? '' : 'd-none')
+      onClick: updateProject,
+      className: 'btn btn-sm btn-success ' + (editableProject(project.id) == true ? '' : 'd-none')
     }, "Zapisz"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
       className: "btn btn-sm btn-danger ml-1"
     }, "Usu\u0144")));
