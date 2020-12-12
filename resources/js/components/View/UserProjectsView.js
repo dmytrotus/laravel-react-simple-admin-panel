@@ -9,15 +9,36 @@ function UserProjectsView(props) {
     return (
     	<Fragment>
     	<h2>Projekty ({projects.length})</h2>
-    	<ul className="list-group">
-    	{projects && projects.map(project =>
-		  <li key={project.id} className="list-group-item d-flex justify-content-between">
-		  	<div>
-		  		<b>Nazwa projektu: </b>{project.title}<b> Opis: </b>{project.description}<b> Stworzony przez:</b> {project.author}
-		  	</div>
-		  </li>
-		)}
-		</ul>
+        <div className="card border-light shadow-sm">
+            <div className="card-body">
+                <div className="table-responsive">
+                    <table className="table table-centered table-nowrap mb-0 rounded">
+                        <thead className="thead-light">
+                            <tr>
+                                <th className="border-0">Nazwa projektu</th>
+                                <th className="border-0">Opis</th>
+                                <th className="border-0">Stworzony przez</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {projects.map(project =>
+                            <tr key={project.id}>
+                                <td className="border-0">
+                                   {project.title} 
+                                </td>
+                                <td className="border-0">
+                                   {project.description}
+                                </td>
+                                <td className="border-0">
+                                    {project.author}
+                                </td>
+                            </tr>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+         </div>
         </Fragment>
     );
 }
