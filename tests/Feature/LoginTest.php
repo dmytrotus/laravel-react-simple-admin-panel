@@ -8,13 +8,21 @@ use Tests\TestCase;
 
 class LoginTest extends TestCase
 {
-    public $route = '/login';
 
-    public function testShowingLoginForm()
+	/** @test */
+    public function showing_login_form()
     {
-        $response = $this->get($this->route);
+        $response = $this->get('login');
 
         $response->assertStatus(200);
         $response->assertViewIs('dashboard.auth.login');
     }
+
+    /** @test */
+    public function redirect_to_login_page(){
+
+    	$response = $this->get('/')->assertRedirect('/user/projects');
+    }
+
+
 }
